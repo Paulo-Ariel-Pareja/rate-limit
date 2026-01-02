@@ -98,7 +98,7 @@ function makeRequest(requestId) {
 
       res.on('end', () => {
         const endTime = process.hrtime.bigint();
-        const duration = Number(endTime - startTime) / 1000000; // milisegundos
+        const duration = Number(endTime - startTime) / 1000000;
 
         stats.total++;
         stats.durations.push(duration);

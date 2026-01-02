@@ -52,7 +52,7 @@ function makeRequest(body, clientId, testName) {
 
       res.on('end', () => {
         const endTime = process.hrtime.bigint();
-        const durationMs = Number(endTime - startTime) / 1000000; // Convertir a milisegundos
+        const durationMs = Number(endTime - startTime) / 1000000;
         
         try {
           const parsed = data ? JSON.parse(data) : {};

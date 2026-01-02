@@ -5,8 +5,8 @@ import { createHash } from 'crypto';
 
 @Injectable()
 export class AppService {
-  private readonly CACHE_TTL_MS = parseInt(
-    process.env.CACHE_TTL_MS || '2',
+  private readonly CACHE_TTL_SEG = parseInt(
+    process.env.CACHE_TTL_SEG || '2',
     10,
   );
 
@@ -48,7 +48,7 @@ export class AppService {
     await this.cacheManager.set(
       requestHash,
       JSON.stringify({ clientId, timestamp: Date.now() }),
-      this.CACHE_TTL_MS * 1000,
+      this.CACHE_TTL_SEG * 1000,
     );
   }
 
