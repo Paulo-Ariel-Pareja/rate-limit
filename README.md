@@ -35,7 +35,7 @@ El servicio se configura mediante variables de entorno. Puedes crear un archivo 
 - `REDIS_PASSWORD`: Contraseña de Redis (opcional)
 
 #### Cache
-- `CACHE_TTL_MS`: TTL (Time To Live) del cache en milisegundos. Tiempo que un request se mantiene en cache para detectar duplicados (default: 2000ms = 2 segundos)
+- `CACHE_TTL_SEG`: TTL (Time To Live) del cache en segundos. Tiempo que un request se mantiene en cache para detectar duplicados (default: 2000ms = 2 segundos)
 
 ### Ejemplo de archivo .env
 
@@ -44,7 +44,7 @@ PORT=3000
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=
-CACHE_TTL_MS=2000
+CACHE_TTL_SEG=2
 ```
 
 ## Ejecutar Redis con Docker

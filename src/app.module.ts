@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
+import { CacheableMemory } from 'cacheable';
 import { ConfigModule } from '@nestjs/config';
+import KeyvRedis from '@keyv/redis';
+import { Keyv } from 'keyv';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
@@ -13,20 +15,18 @@ import { redisStore } from 'cache-manager-redis-yet';
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => {
-        const store = await redisStore({
-          socket: {
-            host: process.env.REDIS_HOST || 'localhost',
-            port: parseInt(process.env.REDIS_PORT || '6379', 10),
-          },
-          password: process.env.REDIS_PASSWORD || undefined,
-        });
-
-        // TTL en milisegundos (default: 2000ms = 2 segundos)
-        const ttl = parseInt(process.env.CACHE_TTL_MS || '2000', 10);
-
+        const host = process.env.REDIS_HOST || 'localhost';
+        const port = parseInt(process.env.REDIS_PORT || '6379', 10);
+        const password = process.env.REDIS_PASSWORD || '';
+        const uri = `redis://${password ? `:${password}@` : ''}${host}:${port}`;
+        const ttlCustom = parseInt(process.env.CACHE_TTL_SEG || '2', 10);
         return {
-          store: () => store,
-          ttl,
+          stores: [
+            new Keyv({
+              store: new CacheableMemory({ ttl: ttlCustom }),
+            }),
+            new KeyvRedis(uri),
+          ],
         };
       },
     }),

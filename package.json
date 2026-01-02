@@ -22,13 +22,14 @@
     "test:load:heavy": "node load-test.js --concurrent 50 --total 5000"
   },
   "dependencies": {
+    "@keyv/redis": "^5.1.5",
     "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.0.0",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.1.11",
     "@nestjs/platform-express": "^11.1.11",
     "cache-manager": "^7.0.0",
-    "cache-manager-redis-yet": "^5.1.2",
+    "cacheable": "^2.3.1",
     "redis": "^4.6.12",
     "reflect-metadata": "^0.1.14",
     "rxjs": "^7.8.1"
